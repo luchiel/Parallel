@@ -1,6 +1,8 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
+#include <pthread.h>
+
 typedef enum { OP_LOCK, OP_UNLOCK, OP_LOOK, OP_INC, OP_DEC } OpCode;
 
 typedef struct {
@@ -23,7 +25,7 @@ typedef struct {
 void init_answer(Answer *answer);
 
 void init_op(Operation *op);
-void fill_op(Operation *op, Answer *put_answer_to, OpCode code, int client_id);
+void fill_op(Operation *op, Answer *put_answer_to, OpCode code, int client_id, int value);
 Operation *clone_op(Operation *op);
 
 #endif
