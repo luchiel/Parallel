@@ -89,7 +89,7 @@ pair<vector<int>*, int> dijkstra(int start, int end) {
 	}
 
 	vector<int> *path = new vector<int>;
-	for(int v = end; v != start; v = bkwd[v]) {
+	for(int v = bkwd[end]; v != start; v = bkwd[v]) {
 		path->push_back(v);
 	}
 	path->push_back(start);
@@ -148,6 +148,19 @@ int main() {
 	init();
 	pair<vector<int>*, int> result = dijkstra(start, vertex_n - 1);
 
-	printf("%d", result.second);
+	printf("Distance: %d\n", result.second);
+
+	for(auto i = result.first->begin(); i != result.first->end(); ++i) {
+		printf("%d ",  *i);
+		for(auto j = results_connected.begin(); j != results_connected.end(); ++j) {
+			if(*i == (*j)[0]) {
+				for(int k = 1; k < j->size(); ++k) {
+					printf("%d ", (*j)[k]);
+				}
+				break;
+			}
+		}
+	}
+	printf("%d\n", vertex_n - 1);
 	return 0;
 }
