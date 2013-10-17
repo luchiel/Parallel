@@ -6,6 +6,8 @@
 
 #include "heap.hpp"
 
+#define TEST_FILE "input.txt"
+
 using namespace std;
 
 const int infinity = 1000 * 1000 * 1000;
@@ -16,18 +18,9 @@ int vertex_n, edge_n, start;
 int connected_n;
 vector<int> dist;
 vector<int> bkwd;
-/*
-Задан граф, состоящий из нескольких компонент связности.
-известно, что компоненты связности связанны между собой.
-
-Задача - найти путь из начальной в конечную точку алгоритмом Дейкстры, если заданы компоненты связности.
-
-Задача состоит в запуске алгоритма Дейкстры на каждую компоненту связности и потом на граф,
-вершинами которого являются компоненты связности.
-*/
 
 void read_data() {
-	freopen("input.txt", "r", stdin);
+	freopen(TEST_FILE, "r", stdin);
 	scanf("%d%d%d", &vertex_n, &edge_n, &start);
 
 	edges.resize(vertex_n);
@@ -53,7 +46,6 @@ void init() {
 }
 
 pair<vector<int>*, int> dijkstra(int start, int end) {
-	// visited?
 	dist[start] = 0;
 	Heap heap(start);
 	while(!heap.empty()) {
@@ -64,14 +56,6 @@ pair<vector<int>*, int> dijkstra(int start, int end) {
 			break;
 		}
 
-		// if(vis[c])
-		//     continue;
-		// vis[c] = true;
-
-		// if(dist[e] == infinity) {
-		// 	break;
-		// }
-
 		for(auto i = edges[e].begin(); i != edges[e].end(); ++i) {
 			if(i->first < start) {
 				continue;
@@ -79,7 +63,6 @@ pair<vector<int>*, int> dijkstra(int start, int end) {
 
 			int d = dist[e] + i->second;
 
-			// also if !vis[i->first] && ..
 			if(d < dist[i->first]) {
 				dist[i->first] = d;
 				bkwd[i->first] = e;
